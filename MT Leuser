@@ -1,0 +1,103 @@
+-- ⚡ Auto Summit by Ganesha Exploit
+-- UI Modern ON/OFF
+-- Delay FIX 2 detik
+-- Dengan notifikasi bawaan Roblox
+
+local Players = game:GetService("Players")
+local VirtualInputManager = game:GetService("VirtualInputManager")
+local StarterGui = game:GetService("StarterGui")
+local player = Players.LocalPlayer
+
+-- Daftar koordinat checkpoint (baru)
+local COORDS = {
+    Vector3.new(990.72, 207.35, 1043.04),
+    Vector3.new(54.41, 396.98, 732.49),
+    Vector3.new(419.69, 873.00, 194.59),
+    Vector3.new(399.84, 1094.37, -123.74),
+    Vector3.new(511.09, 1251.19, -779.25),
+    Vector3.new(871.16, 1144.42, -1003.10),
+    Vector3.new(899.10, 1143.79, -960.78)
+}
+
+-- UI Modern
+local ScreenGui = Instance.new("ScreenGui", game.CoreGui)
+local Frame = Instance.new("Frame", ScreenGui)
+local UICorner = Instance.new("UICorner", Frame)
+local Title = Instance.new("TextLabel", Frame)
+local Toggle = Instance.new("TextButton", Frame)
+local UIStroke = Instance.new("UIStroke", Frame)
+
+Frame.Size = UDim2.new(0, 240, 0, 120)
+Frame.Position = UDim2.new(0.05, 0, 0.2, 0)
+Frame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+Frame.Active = true
+Frame.Draggable = true
+
+UICorner.CornerRadius = UDim.new(0, 12)
+UIStroke.Thickness = 2
+UIStroke.Color = Color3.fromRGB(0, 170, 255)
+
+Title.Size = UDim2.new(1, 0, 0, 40)
+Title.Position = UDim2.new(0, 0, 0, 0)
+Title.BackgroundTransparency = 1
+Title.Text = "⚡ Auto Summit"
+Title.TextColor3 = Color3.fromRGB(0, 200, 255)
+Title.TextScaled = true
+Title.Font = Enum.Font.GothamBold
+
+Toggle.Size = UDim2.new(0, 200, 0, 50)
+Toggle.Position = UDim2.new(0.5, -100, 0.55, 0)
+Toggle.Text = "OFF"
+Toggle.BackgroundColor3 = Color3.fromRGB(170, 0, 0)
+Toggle.TextColor3 = Color3.new(1, 1, 1)
+Toggle.Font = Enum.Font.GothamBold
+Toggle.TextScaled = true
+
+local running = false
+local delayTime = 2 -- FIX 2 detik
+
+-- Fungsi notifikasi Roblox
+local function notif(msg)
+    pcall(function()
+        StarterGui:SetCore("SendNotification", {
+            Title = "⚡ Auto Summit",
+            Text = msg,
+            Duration = 3
+        })
+    end)
+end
+
+Toggle.MouseButton1Click:Connect(function()
+    running = not running
+    Toggle.Text = running and "ON" or "OFF"
+    Toggle.BackgroundColor3 = running and Color3.fromRGB(0, 170, 0) or Color3.fromRGB(170, 0, 0)
+
+    if running then
+        notif("Auto Summit by Ganesha Exploit Aktif ✅")
+        task.spawn(function()
+            while running do
+                for i, pos in ipairs(COORDS) do
+                    if not running then break end
+                    local char = player.Character or player.CharacterAdded:Wait()
+                    local hrp = char:WaitForChild("HumanoidRootPart")
+
+                    -- pastikan tidak duduk
+                    char:WaitForChild("Humanoid").Sit = false
+                    hrp.CFrame = CFrame.new(pos + Vector3.new(0, 3, 0))
+
+                    -- Jika checkpoint terakhir, tahan E
+                    if i == #COORDS then
+                        task.wait(0.5)
+                        VirtualInputManager:SendKeyEvent(true, Enum.KeyCode.E, false, game)
+                        task.wait(3) -- tahan 3 detik
+                        VirtualInputManager:SendKeyEvent(false, Enum.KeyCode.E, false, game)
+                    end
+
+                    task.wait(delayTime)
+                end
+            end
+        end)
+    else
+        notif("Auto Summit by Ganesha Exploit Nonaktif ❌")
+    end
+end)

@@ -1,6 +1,6 @@
 -- ⚡ Auto Summit by Ganesha Exploit
 -- UI Modern ON/OFF
--- Delay FIX 2 detik
+-- Delay FIX 2.5 detik
 -- Dengan notifikasi bawaan Roblox
 
 local Players = game:GetService("Players")
@@ -10,12 +10,12 @@ local player = Players.LocalPlayer
 
 -- Daftar koordinat checkpoint (baru)
 local COORDS = {
-    Vector3.new(990.72, 207.35, 1043.04),
-    Vector3.new(54.41, 396.98, 732.49),
-    Vector3.new(419.69, 873.00, 194.59),
-    Vector3.new(399.84, 1094.37, -123.74),
-    Vector3.new(511.09, 1251.19, -779.25),
-    Vector3.new(871.16, 1144.42, -1003.10),
+    Vector3.new(990.88, 211.11, 1040.56),
+    Vector3.new(54.51, 400.37, 731.86),
+    Vector3.new(419.84, 876.38, 194.11),
+    Vector3.new(399.69, 1097.76, -123.06),
+    Vector3.new(510.83, 1254.57, -779.82),
+    Vector3.new(870.87, 1147.80, -1004.63),
     Vector3.new(899.10, 1143.79, -960.78)
 }
 
@@ -54,7 +54,7 @@ Toggle.Font = Enum.Font.GothamBold
 Toggle.TextScaled = true
 
 local running = false
-local delayTime = 2 -- FIX 2 detik
+local delayTime = 2.5 -- FIX 2.5 detik
 
 -- Fungsi notifikasi Roblox
 local function notif(msg)
